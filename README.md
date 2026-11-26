@@ -13,6 +13,12 @@ until you open **Review** and confirm, so a wrong swipe can always be undone.
   and tap-to-rescue for anything you change your mind about
 - **Move to trash** (recoverable for about 30 days) or **Delete forever**, both through
   Android's own confirmation dialog
+- **Bottom tabs**: Swipe · Gallery · Clean up · Review
+- **Gallery**: every photo and video in a grid. Tap to view full screen and swipe sideways. Long-press to select several and keep or delete them together
+- **Clean up → Duplicates**: exact copies. The oldest copy is kept and the rest are pre-selected
+- **Clean up → Similar**: look-alike photos such as burst shots. The largest one is kept and the rest are pre-selected
+- **Clean up → Large files**: photos, videos or both above 2/5/10/50/100 MB, biggest first
+- **Sort** by newest, oldest or largest. The app remembers your category and sort and **continues where you left off**
 - Everything stays on the phone. The app has no internet permission.
 
 Needs **Android 11 or newer**.
