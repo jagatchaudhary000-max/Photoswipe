@@ -13,6 +13,7 @@ data class MediaItem(
     val isVideo: Boolean,
     val folder: String,      // e.g. "Camera", "Screenshots", "WhatsApp Images"
     val dateAdded: Long,     // seconds since epoch
+    val dateModified: Long,  // seconds since epoch
     val size: Long,          // bytes
     val durationMs: Long,    // 0 for photos
 )
@@ -27,6 +28,7 @@ class MediaRepository(private val context: Context) {
             MediaStore.Files.FileColumns.MEDIA_TYPE,
             MediaStore.MediaColumns.BUCKET_DISPLAY_NAME,
             MediaStore.MediaColumns.DATE_ADDED,
+            MediaStore.MediaColumns.DATE_MODIFIED,
             MediaStore.MediaColumns.SIZE,
             MediaStore.MediaColumns.DURATION,
         )
@@ -44,6 +46,7 @@ class MediaRepository(private val context: Context) {
             val typeCol = c.getColumnIndexOrThrow(MediaStore.Files.FileColumns.MEDIA_TYPE)
             val folderCol = c.getColumnIndexOrThrow(MediaStore.MediaColumns.BUCKET_DISPLAY_NAME)
             val dateCol = c.getColumnIndexOrThrow(MediaStore.MediaColumns.DATE_ADDED)
+            val modCol = c.getColumnIndexOrThrow(MediaStore.MediaColumns.DATE_MODIFIED)
             val sizeCol = c.getColumnIndexOrThrow(MediaStore.MediaColumns.SIZE)
             val durCol = c.getColumnIndexOrThrow(MediaStore.MediaColumns.DURATION)
 
@@ -58,6 +61,7 @@ class MediaRepository(private val context: Context) {
                     isVideo = isVideo,
                     folder = c.getString(folderCol) ?: "Other",
                     dateAdded = c.getLong(dateCol),
+                    dateModified = c.getLong(modCol),
                     size = c.getLong(sizeCol),
                     durationMs = if (c.isNull(durCol)) 0L else c.getLong(durCol),
                 )
@@ -80,6 +84,13 @@ class DecisionStore(context: Context) {
             .putStringSet("pending", pending.map { it.toString() }.toSet())
             .apply()
     }
+
+    /** Remembers which category and sort you were on, so the app reopens where you left off. */
+    fun saveView(category: String, sort: String) {
+        prefs.edit().putString("category", category).putString("sort", sort).apply()
+    }
+    fun category(): String? = prefs.getString("category", null)
+    fun sort(): String? = prefs.getString("sort", null)
 
     private fun read(key: String): Set<Long> =
         prefs.getStringSet(key, emptySet()).orEmpty().mapNotNull { it.toLongOrNull() }.toSet()

@@ -67,6 +67,7 @@ import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
 import com.jagat.photoswipe.Category
 import com.jagat.photoswipe.MediaItem
+import com.jagat.photoswipe.SortOrder
 import com.jagat.photoswipe.UiState
 import kotlinx.coroutines.launch
 import java.text.DateFormat
@@ -83,6 +84,7 @@ fun SwipeScreen(
     onOpenReview: () -> Unit,
     onOpenVideo: (MediaItem) -> Unit,
     onResetKept: () -> Unit,
+    onSort: (SortOrder) -> Unit,
 ) {
     val context = LocalContext.current
     val queue = state.queue
@@ -91,31 +93,13 @@ fun SwipeScreen(
         topBar = {
             TopAppBar(
                 title = { Text("Photo Swipe") },
-                actions = {
-                    TextButton(onClick = onOpenReview) {
-                        BadgedBox(badge = {
-                            if (state.pending.isNotEmpty()) Badge { Text("${state.pending.size}") }
-                        }) { Text("Review") }
-                    }
-                },
+                actions = { SortButton(state.sort, onSort) },
             )
         },
     ) { padding ->
         Column(Modifier.padding(padding).fillMaxSize()) {
 
-            // Category chips: All / Photos / Videos / each folder
-            LazyRow(
-                contentPadding = PaddingValues(horizontal = 12.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-            ) {
-                items(state.categories, key = { it.label + it::class.simpleName }) { c ->
-                    FilterChip(
-                        selected = c == state.category,
-                        onClick = { onCategory(c) },
-                        label = { Text(c.label) },
-                    )
-                }
-            }
+            CategoryChips(state, onCategory)
 
             Text(
                 "${queue.size} left  ·  ${state.kept.size} kept  ·  " +
@@ -124,6 +108,15 @@ fun SwipeScreen(
                 style = MaterialTheme.typography.bodySmall,
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
             )
+            val sorted = state.kept.size + state.pending.size
+            if (sorted > 0 && queue.isNotEmpty()) {
+                Text(
+                    "Continuing where you left off · $sorted already sorted",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.primary,
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                )
+            }
 
             Box(
                 Modifier.weight(1f).fillMaxWidth().padding(16.dp),
