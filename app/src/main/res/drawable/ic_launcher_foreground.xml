@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <!-- flag pole and saffron flag -->
+    <path android:strokeColor="#FFF3E0" android:strokeWidth="1" android:pathData="M54,29L54,19"/>
+    <path android:fillColor="#C62828" android:pathData="M54,19L64,22.5L54,26Z"/>
+    <!-- kalash on top -->
+    <path android:fillColor="#FFF3E0" android:pathData="M54,29m-2,0a2,2 0,1 1,4 0a2,2 0,1 1,-4 0"/>
+    <!-- main shikhara (central spire) -->
+    <path android:fillColor="#FFF3E0" android:pathData="M43,62C43,49 50,39 54,31C58,39 65,49 65,62Z"/>
+    <!-- side spires -->
+    <path android:fillColor="#FFF3E0" android:pathData="M33,64C33,57 36,52 39,48C42,52 45,57 45,64Z"/>
+    <path android:fillColor="#FFF3E0" android:pathData="M63,64C63,57 66,52 69,48C72,52 75,57 75,64Z"/>
+    <!-- carved bands on the spires -->
+    <path android:strokeColor="#E65100" android:strokeWidth="0.8" android:pathData="M47.5,44H60.5M45,52H63M43.8,57.5H64.2"/>
+    <path android:strokeColor="#E65100" android:strokeWidth="0.7" android:pathData="M36,56H42M66,56H72"/>
+    <!-- mandapa (main hall) -->
+    <path android:fillColor="#FFF3E0" android:pathData="M31,63h46v13h-46z"/>
+    <path android:strokeColor="#E65100" android:strokeWidth="0.8" android:pathData="M31,66H77"/>
+    <!-- pillars -->
+    <path android:fillColor="#E65100" android:pathData="M35,68h2v8h-2zM41,68h2v8h-2zM65,68h2v8h-2zM71,68h2v8h-2z"/>
+    <!-- arched doorway -->
+    <path android:fillColor="#BF360C" android:pathData="M49,76V71A5,5 0,0 1,59 71V76Z"/>
+    <!-- plinth and steps -->
+    <path android:fillColor="#FFE0B2" android:pathData="M27,76h54v4h-54z"/>
+    <path android:fillColor="#FFCC80" android:pathData="M24,80h60v4h-60z"/>
+</vector>
